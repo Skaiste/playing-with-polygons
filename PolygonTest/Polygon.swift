@@ -24,7 +24,8 @@ import UIKit
     }
     @IBInspectable var fillColor: UIColor = UIColor.greenColor()
     @IBInspectable var pointColor: UIColor = UIColor.greenColor()
-    @IBInspectable var pointArray: [CGPoint] = [CGPoint(x: 37.5, y: 112.5),
+    
+    var pointArray: [CGPoint] = [CGPoint(x: 37.5, y: 112.5),
         CGPoint(x: 75.0, y: 37.5),
         CGPoint(x: 150, y: 112.5),
         CGPoint(x: 187.5, y: 37.5),
@@ -36,11 +37,7 @@ import UIKit
         CGPoint(x: 112.5, y: 225.0),
         CGPoint(x: 75.0, y: 262.5),
         CGPoint(x: 37.5, y: 187.5),
-        CGPoint(x: 75.0, y: 150.0)] {
-        didSet {
-            setNeedsDisplay()
-        }
-    }
+        CGPoint(x: 75.0, y: 150.0)]
     
     let selectedPointRadius: CGFloat = 20.0
     
@@ -54,23 +51,9 @@ import UIKit
         let width = rect.width
         let height = rect.height
         
-        var points: [CGPoint] = [CGPoint(x: width / 8, y: height / 8 * 3),
-                                 CGPoint(x: width / 4, y: height / 8),
-                                 CGPoint(x: width / 2, y: height / 8 * 3),
-                                 CGPoint(x: width / 8 * 5, y: height / 8),
-                                 CGPoint(x: width / 4 * 3, y: height / 4),
-                                 CGPoint(x: width / 8 * 7, y: height / 4),
-                                 CGPoint(x: width / 8 * 5, y: height / 8 * 5),
-                                 CGPoint(x: width / 8 * 7, y: height / 4 * 3),
-                                 CGPoint(x: width / 4 * 3, y: height / 8 * 7),
-                                 CGPoint(x: width / 8 * 3, y: height / 4 * 3),
-                                 CGPoint(x: width / 4, y: height / 8 * 7),
-                                 CGPoint(x: width / 8, y: height / 8 * 5),
-                                 CGPoint(x: width / 4, y: height / 2)
-                                ]
+        let points = pointArray
         
-        points = pointArray
-        
+        // Filling the polygon if it is not inverted
         if !inverted {
             let path = UIBezierPath()
             
@@ -87,19 +70,26 @@ import UIKit
             fillColor.setFill()
             path.fill()
         }
+        // Filling everything outside polygon if it is inverted
         else {
             
             let path = UIBezierPath()
+            
+            // Starting with the point which is closest to the first point in array
             
             let startingPoint: CGPoint = getClosestCorner(points[0], width: width, height: height)
             
             path.moveToPoint(startingPoint)
             
+            // Adding all points in the point array
+            
             for p in points {
                 path.addLineToPoint(p)
             }
-            path.addLineToPoint(points[0])
             
+            // Adding the first point in array, starting point and all corner points that are left
+            
+            path.addLineToPoint(points[0])
             
             path.addLineToPoint(startingPoint)
             // getting corner points
@@ -131,7 +121,8 @@ import UIKit
     // TOUCHES!!!
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
-        if let touch =  touches.first{
+        if let touch = touches.first {
+            // p - touched point
             let p = touch.locationInView(self)
             var selectedP = pointArray[selectedPoint]
             print(p)
@@ -143,6 +134,7 @@ import UIKit
                 p.y < selectedP.y + selectedPointRadius/2 {
                     selectedIsTouched = true
             }
+            // if other point is touched, searches for that point
             else {
                 for var i = 0; i < pointArray.count; i++ {
                     selectedP = pointArray[i]
@@ -163,7 +155,7 @@ import UIKit
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
         if let touch = touches.first{
-            print(touch.locationInView(self))
+            //print(touch.locationInView(self))
             selectedIsTouched = false
         }
         super.touchesEnded(touches, withEvent: event)
@@ -173,8 +165,9 @@ import UIKit
         
         if let touch = touches.first{
             let p = touch.locationInView(self)
-            print(p)
+            //print(p)
             
+            // if the selected point is touched it lets change its coordinates to the ones that are touched
             if (selectedIsTouched &&
                 p.x >= 0.0 && p.x <= self.frame.width &&
                 p.y >= 0.0 && p.y <= self.frame.height){
@@ -184,6 +177,16 @@ import UIKit
         super.touchesMoved(touches, withEvent: event)
     }
     
+    /**
+        Gets an array of corner points from one to another int anti-clockwise order
+        
+        @param from Point which indicates from which point array should start
+        @param to Point which indicates to which point array should end
+        @param width Width of the frame
+        @param height Height of the frame
+    
+        @return An array of corner points (points 'from' and 'to' not included)
+    */
     func cornerPointsFromTo(from: CGPoint, to: CGPoint, width: CGFloat, height: CGFloat) -> [CGPoint] {
         var cornerPoints: [CGPoint] = []
         // moving anti-clockwise
@@ -201,16 +204,19 @@ import UIKit
         var ended: Bool = false
         
         for var i = 0; !found || !ended; i = (i + 1) % corners.count{
-            // if the first point was not found before, but now it is
+            // if the first point was not found before, but now it is 
+            // starts putting points to array
             if !found && from == corners[i]{
                 found = true
             }
-            // if the first point was found and the last one is found
+            // if the first point was found and the last one is found 
+            // stops putting points to array
             else if found && to == corners[i]{
                 ended = true
             }
-            // if the first point was found
-            else if found{
+            // if the first point was found 
+            // adds the current point to array
+            else if found {
                 cornerPoints.append(corners[i])
             }
         }
@@ -218,10 +224,16 @@ import UIKit
         
         return cornerPoints
     }
-    /*
-     *  Gets the closest corner to the given point
-     */
-    func getClosestCorner(p : CGPoint, width: CGFloat, height: CGFloat) -> CGPoint {
+    /**
+        Gets the closest corner to the given point
+        
+        @param p The given point
+        @param width The width of the frame
+        @param height the height of the frame
+        
+        @return Closest corner to the point (may be a middle of 2 closest corners)
+    */
+    func getClosestCorner(p: CGPoint, width: CGFloat, height: CGFloat) -> CGPoint {
         
         var x, y : CGFloat
         
@@ -244,9 +256,12 @@ import UIKit
         return CGPoint(x: x, y: y)
     }
     
+    /**
+        Adds a point in the middle of selected and next to selected points
+    */
     func addPoint() {
-        print(selectedPoint)
         let nextPointIndex = (selectedPoint + 1) % pointArray.count
+        // calculates position of middle point
         let x: CGFloat = pointArray[selectedPoint].x + (pointArray[nextPointIndex].x - pointArray[selectedPoint].x)/2
         let y: CGFloat = pointArray[selectedPoint].y + (pointArray[nextPointIndex].y - pointArray[selectedPoint].y)/2
         
@@ -254,6 +269,9 @@ import UIKit
         selectedPoint = nextPointIndex
     }
     
+    /**
+        Deletes selected point from polygon (point array)
+    */
     func deleteSelectedPoint() {
         if (pointArray.count > 0){
             pointArray.removeAtIndex(selectedPoint)

@@ -23,14 +23,22 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    /**
+        Inverting polygon
+    */
     @IBAction func btnPushButton() {
         polygon.inverted = !polygon.inverted
     }
     
+    /**
+        Adding point to polygon
+    */
     @IBAction func addPoint(sender: AnyObject) {
         polygon.addPoint()
     }
-    
+    /**
+        Removing selected point in polygon
+    */
     @IBAction func removePointButton() {
         polygon.deleteSelectedPoint()
     }
