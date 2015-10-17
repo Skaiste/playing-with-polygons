@@ -148,6 +148,7 @@ import UIKit
                         p.y < selectedP.y + selectedPointRadius/2 {
                             selectedPoint = i
                             selectedIsTouched = true
+                            break;
                     }
                 }
             }
@@ -158,7 +159,7 @@ import UIKit
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
-        if let touch = touches.first{
+        if let _ = touches.first{
             //print(touch.locationInView(self))
             selectedIsTouched = false
         }
@@ -184,12 +185,12 @@ import UIKit
     /**
         Gets an array of corner points from one to another int anti-clockwise order
         
-        @param from Point which indicates from which point array should start
-        @param to Point which indicates to which point array should end
-        @param width Width of the frame
-        @param height Height of the frame
+        - parameter from: Point which indicates from which point array should start
+        - parameter to: Point which indicates to which point array should end
+        - parameter width: Width of the frame
+        - parameter height: Height of the frame
     
-        @return An array of corner points (points 'from' and 'to' not included)
+        - returns: An array of corner points (points 'from' and 'to' not included)
     */
     func cornerPointsFromTo(from: CGPoint, to: CGPoint, width: CGFloat, height: CGFloat) -> [CGPoint] {
         var cornerPoints: [CGPoint] = []
@@ -231,11 +232,11 @@ import UIKit
     /**
         Gets the closest corner to the given point
         
-        @param p The given point
-        @param width The width of the frame
-        @param height the height of the frame
+        - parameter p: The given point
+        - parameter width: The width of the frame
+        - parameter height: the height of the frame
         
-        @return Closest corner to the point (may be a middle of 2 closest corners)
+        - returns: Closest corner to the point (may be a middle of 2 closest corners)
     */
     func getClosestCorner(p: CGPoint, width: CGFloat, height: CGFloat) -> CGPoint {
         
