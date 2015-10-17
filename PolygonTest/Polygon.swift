@@ -218,7 +218,9 @@ import UIKit
         
         return cornerPoints
     }
-    
+    /*
+     *  Gets the closest corner to the given point
+     */
     func getClosestCorner(p : CGPoint, width: CGFloat, height: CGFloat) -> CGPoint {
         
         var x, y : CGFloat

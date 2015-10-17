@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "Polygon.cornerPointsFromTo(CGPoint, to : CGPoint, width : CGFloat, height : CGFloat) -&gt; [CGPoint]:Polygon.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "corners[i]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
