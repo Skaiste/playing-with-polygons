@@ -10,6 +10,9 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var polygon: Polygon!
+    @IBOutlet weak var addButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -19,7 +22,17 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
+    @IBAction func btnPushButton() {
+        polygon.inverted = !polygon.inverted
+    }
+    
+    @IBAction func addPoint(sender: AnyObject) {
+        polygon.addPoint()
+    }
+    
+    @IBAction func removePointButton() {
+        polygon.deleteSelectedPoint()
+    }
 }
 

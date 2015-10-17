@@ -14,6 +14,7 @@
 		EBB600E71BCD877F00A6395A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EBB600E51BCD877F00A6395A /* LaunchScreen.storyboard */; };
 		EBB600F21BCD878000A6395A /* PolygonTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB600F11BCD878000A6395A /* PolygonTestTests.swift */; };
 		EBB600FD1BCD878000A6395A /* PolygonTestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB600FC1BCD878000A6395A /* PolygonTestUITests.swift */; };
+		EBB6010B1BCD87AE00A6395A /* Polygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB6010A1BCD87AE00A6395A /* Polygon.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		EBB600F81BCD878000A6395A /* PolygonTestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PolygonTestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBB600FC1BCD878000A6395A /* PolygonTestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolygonTestUITests.swift; sourceTree = "<group>"; };
 		EBB600FE1BCD878000A6395A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EBB6010A1BCD87AE00A6395A /* Polygon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Polygon.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				EBB600E31BCD877F00A6395A /* Assets.xcassets */,
 				EBB600E51BCD877F00A6395A /* LaunchScreen.storyboard */,
 				EBB600E81BCD877F00A6395A /* Info.plist */,
+				EBB6010A1BCD87AE00A6395A /* Polygon.swift */,
 			);
 			path = PolygonTest;
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 			files = (
 				EBB600DF1BCD877F00A6395A /* ViewController.swift in Sources */,
 				EBB600DD1BCD877F00A6395A /* AppDelegate.swift in Sources */,
+				EBB6010B1BCD87AE00A6395A /* Polygon.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
