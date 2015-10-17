@@ -37,7 +37,11 @@ import UIKit
         CGPoint(x: 112.5, y: 225.0),
         CGPoint(x: 75.0, y: 262.5),
         CGPoint(x: 37.5, y: 187.5),
-        CGPoint(x: 75.0, y: 150.0)]
+        CGPoint(x: 75.0, y: 150.0)] {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
     
     let selectedPointRadius: CGFloat = 20.0
     
